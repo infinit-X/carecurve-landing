@@ -1,0 +1,98 @@
+.carecurve-intro {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #f0f4f8 0%, #e6f0fa 100%); /* Pastel blue gradient background */
+    padding: 50px 20px;
+    overflow: hidden;
+  }
+  
+  .animation-container {
+    position: relative;
+    width: 100%;
+    height: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .rainbow-line {
+    position: absolute;
+    width: 100%;
+    height: 5px;
+    background: linear-gradient(to right, #87CEEB 0%, #FF69B4 0%); /* Initial blue */
+  }
+  
+  .heart-shape {
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    background: linear-gradient(to right, #87CEEB, #FF69B4); /* Gradient for heart */
+    clip-path: url(#heart-clip);
+  }
+  
+  .carecurve-logo {
+    position: absolute;
+    width: 150px;
+    height: auto;
+  }
+  
+  .content-container {
+    text-align: center;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  .carecurve-title {
+    font-size: 2.5rem;
+    color: #5a8cff; /* Light blue for the title */
+    margin-bottom: 20px;
+  }
+  
+  .carecurve-description {
+    font-size: 1.2rem;
+    color: #666;
+    margin-bottom: 40px;
+    line-height: 1.6;
+  }
+  
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    padding: 0 20px;
+  }
+  
+  .feature-card {
+    background: #fff5f5; /* Pastel pink background for feature cards */
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+  }
+  
+  .feature-card:hover {
+    transform: translateY(-5px);
+  }
+  
+  .feature-title {
+    font-size: 1.5rem;
+    color: #ff99cc; /* Pastel pink for feature titles */
+    margin-bottom: 10px;
+  }
+  
+  .feature-description {
+    font-size: 1rem;
+    color: #666;
+    line-height: 1.5;
+  }
+  
+  /* SVG clip path for heart shape */
+  svg.heart-clip {
+    position: absolute;
+    width: 0;
+    height: 0;
+  }

@@ -1,0 +1,145 @@
+/* Basic Navbar Styling */
+.navbar {
+  position: fixed;
+  top: 5px;
+  left: 0;
+  right: 0;
+  padding: 1.2rem 70px;  /* adjust 70px to whatever exact spacing you want */
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+  z-index: 1000;
+}
+  
+  /* Logo Styling */
+  .navbar-logo {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem; /* Space between logo image and text */
+    /* Temporarily add color if logo is hard to see */
+    color: white;
+    font-weight: bold;
+  }
+  
+  .navbar-logo img {
+    height: 22px; /* Adjust logo size */
+    display: block; /*width: calc(100% - 140px);*/
+  }
+  
+  /* Central Links Container - This gets the Glass Effect */
+  .navbar-links-container {
+    display: flex;        /* keep flex to layout the links */
+    margin: 0 auto;       /* auto‑center this box in the navbar */
+    background: rgba(255, 255, 255, 0.1); /* Semi-transparent white */
+    backdrop-filter: blur(10px); /* The Glass blur effect */
+    -webkit-backdrop-filter: blur(10px); /* Safari support */
+    border-radius: 60px; /* Fully rounded corners */
+    padding: 0.6rem 2rem; /* Padding inside the glassy container */
+    border: 1px solid rgba(255, 255, 255, 0.22); /* Subtle border */
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  }
+  
+  /* Styling for the list holding the links */
+  .navbar-links {
+    list-style: none;
+    display: flex;
+    
+    padding: 0;
+    gap: 2rem; /* Space between nav links */
+  }
+  
+  /* Individual Nav Link Styling */
+  .nav-link {
+    color: #f0f0f0; /* Light color for text */
+    text-decoration: none;
+    font-size: 0.95rem;
+    font-weight: 500;
+    padding: 0.3rem 0; /* Add some padding for hover effect */
+    transition: color 0.3s ease, text-shadow 0.3s ease; /* Smooth transition */
+    position: relative; /* Needed for potential underline effect later */
+    font-family: "Rethink Sans", sans-serif;
+  }
+  
+  /* Hover Effect for Nav Links */
+  .nav-link:hover {
+    color: #ffffff; /* Brighter white on hover */
+    text-shadow: 0 0 8px rgba(255, 255, 255, 0.7); /* Glow effect */
+  }
+  
+  /* Contact Button Styling */
+  .contact-button {
+    background-color: rgba(255, 255, 255, 1); /* solid white */
+    color: #333; /* Dark text */
+    font-family: "Rethink Sans", sans-serif;
+    border: none;
+    padding: 0.6rem 1.5rem;
+    border-radius: 60px; /* Matching rounded corners */
+    font-weight: 700;
+    font-size: 15px;
+    line-height: 1; /* 100% line height */
+    letter-spacing: 0;
+    text-align: center;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  .contact-button:hover {
+    background-color: #f0f0f0; /* Slightly darker on hover */
+    transform: scale(1.03); /* Slight zoom effect */
+  }
+  
+  /* Note on Stickiness:
+     Making *only* the central part sticky while the logo/button scroll
+     is complex with pure CSS and standard layouts.
+     `position: fixed` on the parent `.navbar` makes the whole bar sticky,
+     which is the most common and straightforward approach. We've added
+     top/left/right properties to give it that "floating" look instead of
+     spanning the full viewport width edge-to-edge.
+  */
+
+  /* Responsive Adjustments for Navbar */
+@media (max-width: 900px) { /* Adjust breakpoint */
+  .navbar {
+    left: 40px;
+    right: 40px;
+    width: calc(100% - 80px);
+  }
+  .navbar-links {
+      gap: 1.5rem; /* Reduce gap */
+  }
+  .navbar-links-container {
+      padding: 0.5rem 1.5rem;
+  }
+  .nav-link {
+      font-size: 0.9rem;
+  }
+  .contact-button {
+      padding: 0.5rem 1.2rem;
+      font-size: 16px;
+  }
+}
+
+@media (max-width: 768px) {
+   /* Consider hiding links / using a mobile menu toggle */
+   /* This example just shrinks things further */
+   .navbar {
+     left: 20px;
+     right: 20px;
+     width: calc(100% - 40px);
+     top: 15px; /* Move up slightly */
+   }
+   .navbar-links {
+       gap: 1rem;
+   }
+   .navbar-links-container {
+       padding: 0.4rem 1rem;
+   }
+   .nav-link {
+       font-size: 0.85rem;
+   }
+   .contact-button {
+       padding: 0.4rem 1rem;
+       font-size: 14px;
+   }
+}

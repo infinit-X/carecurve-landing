@@ -1,0 +1,137 @@
+/* src/components/Hero/Hero.css */
+
+.hero-section {
+    position: relative; /* Establishes positioning context */
+    /* Use min-height instead of height for flexibility */
+    min-height: 100vh;
+    display: flex;
+    /* Align items to the start (top) if content shouldn't be perfectly vertically centered */
+    /* align-items: center; */ /* Keep if you want vertical centering */
+    justify-content: center; /* Horizontally center content container */
+    align-items: center; /* Align text to the left as per figma left position */
+    overflow: hidden; /* Prevent content/video spillover */
+    color: rgba(255, 255, 255, 0.945); /* Default text color */
+    padding: 0%;
+    
+  }
+  
+  .video-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -2; /* Behind overlay and content */
+  }
+  
+  .video-background video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Cover entire container */
+  }
+  
+  .hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /* Keep the overlay, adjust opacity if needed (0.5 = 50% black) */
+    background-color: rgba(0, 0, 0, 0.4); /* Slightly less dark maybe? Adjust as needed */
+    z-index: -1; /* Behind content, above video */
+  }
+  
+  .hero-content {
+    position: relative; /* Ensure content is positionable */
+    z-index: 1; /* Make sure content is above overlay */
+    /* Use max-width based on Figma width, but allow flexibilty */
+    max-width: 742px;
+    width: 100%; /* Take available width up to max-width */
+    /* Remove fixed padding if parent .hero-section has it */
+    /* padding: 0 1rem; */
+    /* Use margin-top to push content down from the navbar */
+    margin-top: 90px; /* Adjusted margin-top significantly - refine this value! */
+    /* Removed flex centering from parent to align left */
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* Align items (h1, button) to the left */
+  }
+  
+  .hero-content h1 {
+    /* Apply Figma specs */
+    font-family: "Rethink Sans-Bold", sans-serif ; /* Ensure it's explicitly set */
+    font-size: 55px;
+    font-weight: 600;
+    line-height: 1; /* 100% line height */
+    letter-spacing: 0; /* 0% letter spacing */
+    color: rgba(255, 255, 255, 0.85); /* Explicitly white */
+    margin-bottom: 2rem; /* Increased space below heading, adjust as needed */
+    
+    /* Width/Height are handled by content and max-width */
+    /* vertical-align is not needed here */
+  }
+  
+  .learn-more-button {
+    /* Let's use padding to achieve the size, more flexible than fixed width/height */
+    /* padding: 0.8rem 2rem; */ /* Old padding */
+    padding: 0.6rem 2.5rem; /* Adjust padding to get closer to 195x41 feel */
+    font-size: 1rem; /* Default, can adjust if Figma spec has it */
+    font-weight: 500; /* Default, can adjust */
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    /* Apply Figma border-radius */
+    border-radius: 60px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, backdrop-filter 0.3s ease, transform 0.2s ease, border-color 0.3s ease;
+  
+    /* Keep the Glass Effect - Figma spec might be simplified */
+    /* The rgba(217, 217, 217, 1) might be a fill color used IN Figma, not the final CSS background */
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  
+    /* Explicitly set font */
+    font-family: "Rethink Sans", sans-serif;
+  }
+  
+  .learn-more-button:hover {
+    background: rgba(255, 255, 255, 0.25);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    transform: scale(1.03);
+    border-color: rgba(255, 255, 255, 0.6);
+  }
+  
+  /* Responsive Adjustments (Review these) */
+  @media (max-width: 768px) {
+     .hero-section {
+       padding: 0 40px; /* Reduce padding */
+     }
+    .hero-content {
+       margin-top: 150px; /* Adjust margin */
+       max-width: 90%; /* Allow more flexibility */
+    }
+    .hero-content h1 {
+      font-size: 48px; /* Smaller heading */
+    }
+    .learn-more-button {
+      padding: 0.7rem 1.5rem;
+      font-size: 0.9rem;
+    }
+  }
+  
+  @media (max-width: 500px) {
+    .hero-section {
+       padding: 0 20px; /* Further reduce padding */
+     }
+    .hero-content {
+       margin-top: 120px; /* Adjust margin */
+    }
+    .hero-content h1 {
+        font-size: 36px; /* Even smaller */
+    }
+    .learn-more-button {
+       align-self: center; /* Center button on small screens if needed */
+    }
+  }
