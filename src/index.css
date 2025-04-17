@@ -1,0 +1,42 @@
+/* Example src/index.css */
+body {
+  margin: 0;
+  /* Apply Rethink Sans here */
+  font-family: "Rethink Sans", -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: #f4f4f4;
+  overflow-x: hidden;
+}
+
+*, *::before, *::after {
+    box-sizing: border-box; /* Better element sizing */
+    margin: 0;
+    padding: 0;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+@font-face {
+  font-family: 'Rethink Sans';
+  src: url('./assets/fonts/RethinkSans-Regular.ttf') format('ttf'),
+       url('./assets/fonts/RethinkSans-Regular.ttf') format('ttf');  
+  font-weight: 400; /* Or the correct weight */
+  font-style: normal;
+  font-display: swap; /* Improves loading perception */
+}
+
+@font-face {
+  font-family: 'Rethink Sans';
+  src: url('./assets/fonts/RethinkSans-Bold.ttf') format('ttf'), 
+       url('./assets/fonts/RethinkSans-Bold.ttf') format('ttf'); 
+  font-weight: 700; /* Or the correct weight */
+  font-style: normal;
+  font-display: swap;
+}
+/* Add more @font-face rules for other weights/styles if needed */
