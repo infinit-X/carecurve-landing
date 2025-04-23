@@ -1,0 +1,153 @@
+.services-section {
+  position: relative;
+  padding: 8rem 0;
+  background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+  overflow: hidden;
+}
+
+.services-background {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+.gradient-sphere {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.2;
+}
+
+.gradient-1 {
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(79, 70, 229, 0.4) 0%, transparent 70%);
+  top: -100px;
+  left: -100px;
+}
+
+.gradient-2 {
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(5, 150, 105, 0.4) 0%, transparent 70%);
+  bottom: -200px;
+  right: -100px;
+}
+
+.gradient-3 {
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, rgba(220, 38, 38, 0.4) 0%, transparent 70%);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.services-title {
+  font-family: 'RethinkSans', sans-serif;
+  font-size: clamp(2rem, 5vw, 3rem);
+  font-weight: bold;
+  text-align: center;
+  color: #fff;
+  margin-bottom: 1rem;
+}
+
+.services-subtitle {
+  text-align: center;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 1.2rem;
+  max-width: 600px;
+  margin: 0 auto 4rem;
+}
+
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  padding: 1rem;
+}
+
+.service-card {
+  position: relative;
+  padding: 2.5rem 2rem;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 1.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.service-icon-wrapper {
+  width: 60px;
+  height: 60px;
+  background: var(--card-color);
+  border-radius: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+  position: relative;
+  z-index: 1;
+}
+
+.service-icon {
+  font-size: 2rem;
+}
+
+.service-title {
+  font-family: 'RethinkSans', sans-serif;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #fff;
+  margin-bottom: 1rem;
+  position: relative;
+  z-index: 1;
+}
+
+.service-description {
+  color: rgba(255, 255, 255, 0.8);
+  line-height: 1.7;
+  position: relative;
+  z-index: 1;
+}
+
+.service-shine {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(circle at 50% 50%, var(--card-color), transparent 70%);
+  opacity: 0;
+  z-index: 0;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .services-section {
+    padding: 4rem 0;
+  }
+
+  .services-grid {
+    gap: 1.5rem;
+    padding: 0.5rem;
+  }
+
+  .service-card {
+    padding: 2rem 1.5rem;
+  }
+
+  .service-icon-wrapper {
+    width: 50px;
+    height: 50px;
+  }
+
+  .service-icon {
+    font-size: 1.75rem;
+  }
+
+  .service-title {
+    font-size: 1.25rem;
+  }
+}

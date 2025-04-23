@@ -1,0 +1,133 @@
+.feature-spotlight {
+  position: relative;
+  padding: 8rem 0;
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+  overflow: hidden;
+}
+
+.spotlight-background {
+  position: absolute;
+  inset: 0;
+  background: 
+    radial-gradient(circle at 20% 20%, rgba(99, 102, 241, 0.15) 0%, transparent 50%),
+    radial-gradient(circle at 80% 80%, rgba(5, 150, 105, 0.15) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+.spotlight-title {
+  font-family: 'RethinkSans', sans-serif;
+  font-size: clamp(2rem, 5vw, 3rem);
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 4rem;
+  color: #fff;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.spotlight-content {
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.spotlight-tabs {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.spotlight-tab {
+  padding: 1rem 2rem;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 1rem;
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.spotlight-tab:hover {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: var(--highlight-color);
+}
+
+.spotlight-tab.active {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: var(--highlight-color);
+  box-shadow: 0 0 20px rgba(var(--highlight-color), 0.2);
+}
+
+.tab-icon {
+  font-size: 1.25rem;
+}
+
+.spotlight-details {
+  text-align: center;
+  padding: 2rem;
+  background: rgba(255, 255, 255, 0.02);
+  border-radius: 1.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+}
+
+.feature-icon-large {
+  width: 80px;
+  height: 80px;
+  font-size: 2.5rem;
+  margin: 0 auto 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: var(--highlight-color);
+  box-shadow: 0 0 30px rgba(var(--highlight-color), 0.3);
+}
+
+.feature-title {
+  font-family: 'RethinkSans', sans-serif;
+  font-size: 1.75rem;
+  font-weight: 600;
+  color: #fff;
+  margin-bottom: 1rem;
+}
+
+.feature-description {
+  color: rgba(255, 255, 255, 0.8);
+  line-height: 1.7;
+  font-size: 1.1rem;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .feature-spotlight {
+    padding: 4rem 0;
+  }
+
+  .spotlight-tab {
+    padding: 0.75rem 1.5rem;
+    font-size: 0.9rem;
+  }
+
+  .feature-icon-large {
+    width: 60px;
+    height: 60px;
+    font-size: 2rem;
+  }
+
+  .feature-title {
+    font-size: 1.5rem;
+  }
+
+  .feature-description {
+    font-size: 1rem;
+  }
+}

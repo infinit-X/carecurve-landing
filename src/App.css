@@ -1,42 +1,61 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+.App {
+  min-height: 100vh;
+  position: relative;
+  overflow-x: hidden;
+  background: linear-gradient(to bottom, #000913 0%, #001933 100%);
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+main {
+  position: relative;
+  z-index: 1;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
+/* Smooth scrolling for the entire page */
+html {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+}
+
+/* Hide scrollbar but keep functionality */
+body {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+}
+
+body::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
+}
+
+/* Section transitions */
+section {
+  position: relative;
+  transition: transform 0.6s ease-out, opacity 0.6s ease-out;
+}
+
+/* Custom selection color */
+::selection {
+  background: rgba(79, 70, 229, 0.2);
+  color: white;
+}
+
+/* Modern touch device scrolling */
+@media (pointer: coarse) {
+  html {
+    -webkit-overflow-scrolling: touch;
   }
-  to {
-    transform: rotate(360deg);
+}
+
+/* Responsive design adjustments */
+@media (max-width: 768px) {
+  .App {
+    overflow-x: hidden;
   }
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
+/* Hide custom cursor on touch devices */
+@media (hover: none) and (pointer: coarse) {
+  .cursor-dot,
+  .cursor-ring {
+    display: none !important;
   }
-}
-
-.card {
-  padding: 2em;
-}
-
-.read-the-docs {
-  color: #888;
 }

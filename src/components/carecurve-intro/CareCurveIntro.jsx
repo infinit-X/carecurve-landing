@@ -1,183 +1,198 @@
-import React, { useRef, useLayoutEffect } from 'react';
+import React, { useRef, useLayoutEffect, useEffect, useState } from 'react';
+import { motion } from 'framer-motion';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import careCurveLogo from '../../assets/images/logo.png';
 import './CareCurveIntro.css';
 
-// Placeholder for the CareCurve logo
-// Replace this with the actual path to your logo image
-import careCurveLogo from '../../assets/images/logo.png';
-
-// Register GSAP Plugins
 gsap.registerPlugin(ScrollTrigger);
+
+const Particles = () => {
+  const particlesRef = useRef([]);
+  const [particles, setParticles] = useState([]);
+
+  useEffect(() => {
+    const newParticles = Array.from({ length: 50 }, (_, i) => ({
+      id: i,
+      x: Math.random() * window.innerWidth,
+      y: Math.random() * window.innerHeight,
+      size: Math.random() * 2 + 1,
+      speedX: (Math.random() - 0.5) * 2,
+      speedY: (Math.random() - 0.5) * 2,
+    }));
+    setParticles(newParticles);
+
+    const animate = () => {
+      particlesRef.current.forEach((particle, i) => {
+        if (!particle) return;
+        
+        const particleData = newParticles[i];
+        particleData.x += particleData.speedX;
+        particleData.y += particleData.speedY;
+
+        if (particleData.x < 0) particleData.x = window.innerWidth;
+        if (particleData.x > window.innerWidth) particleData.x = 0;
+        if (particleData.y < 0) particleData.y = window.innerHeight;
+        if (particleData.y > window.innerHeight) particleData.y = 0;
+
+        particle.style.transform = `translate(${particleData.x}px, ${particleData.y}px)`;
+      });
+      requestAnimationFrame(animate);
+    };
+
+    animate();
+  }, []);
+
+  return (
+    <div className="particles">
+      {particles.map((particle) => (
+        <div
+          key={particle.id}
+          ref={(el) => (particlesRef.current[particle.id] = el)}
+          className="particle"
+          style={{
+            width: `${particle.size}px`,
+            height: `${particle.size}px`,
+            left: 0,
+            top: 0,
+            transform: `translate(${particle.x}px, ${particle.y}px)`,
+          }}
+        />
+      ))}
+    </div>
+  );
+};
 
 const CareCurveIntro = () => {
   const sectionRef = useRef(null);
-  const rainbowLineRef = useRef(null);
+  const ribbonRef = useRef(null);
   const heartRef = useRef(null);
   const logoRef = useRef(null);
-  const titleRef = useRef(null);
-  const descriptionRef = useRef(null);
-  const featuresRef = useRef([]);
-
-  const setFeatureRef = (el, index) => {
-    featuresRef.current[index] = el;
-  };
-
-  const features = [
-    {
-      title: 'Secure Data Storage',
-      description: 'Safeguard all health information using secure databases like Amazon HealthLake.',
-    },
-    {
-      title: 'Dual Platform Access',
-      description: 'Separate logins for mothers and healthcare providers for seamless interaction.',
-    },
-    {
-      title: 'Real-Time Updates',
-      description: 'Access health and growth data updates in real-time via web UI or mobile app.',
-    },
-    {
-      title: 'Comprehensive Digitization',
-      description: 'All physical card information digitized and accessible anytime, anywhere.',
-    },
-    {
-      title: 'Smart Notifications',
-      description: 'Reminders for clinic visits, vaccinations, growth predictions, and tips for mothers.',
-    },
-  ];
+  const nameRef = useRef(null);
+  const glowRef = useRef(null);
 
   useLayoutEffect(() => {
-    const ctx = gsap.context(() => {
-      // Initially hide elements
-      gsap.set(rainbowLineRef.current, { x: '-100%' });
-      gsap.set(heartRef.current, { opacity: 0, scale: 0 });
-      gsap.set(logoRef.current, { opacity: 0, scale: 1.5 });
-      gsap.set(titleRef.current, { opacity: 0, y: 50 });
-      gsap.set(descriptionRef.current, { opacity: 0, y: 50 });
-      featuresRef.current.forEach((feature) => {
-        gsap.set(feature, { opacity: 0, y: 50 });
-      });
+    let pathLength = 1000;
+    if (ribbonRef.current) {
+      pathLength = ribbonRef.current.getTotalLength();
+      ribbonRef.current.style.strokeDasharray = pathLength;
+      ribbonRef.current.style.strokeDashoffset = pathLength;
+    }
 
-      // Rainbow Line Animation Timeline
-      const rainbowTl = gsap.timeline({
+    const ctx = gsap.context(() => {
+      gsap.set([ribbonRef.current, heartRef.current, logoRef.current, nameRef.current], { 
+        opacity: 0 
+      });
+      gsap.set(heartRef.current, { scale: 0 });
+      gsap.set(logoRef.current, { scale: 1.5 });
+      gsap.set(nameRef.current, { y: 30 });
+
+      const tl = gsap.timeline({
         scrollTrigger: {
           trigger: sectionRef.current,
-          start: 'top 80%',
-          end: 'top 20%',
+          start: 'top center',
+          end: 'center center',
           scrub: 1,
         },
       });
 
-      // Rainbow line enters from left
-      rainbowTl.to(rainbowLineRef.current, {
-        x: '50%',
+      tl.to(ribbonRef.current, {
+        opacity: 1,
+        duration: 0.5
+      })
+      .to(ribbonRef.current, {
+        strokeDashoffset: 0,
         duration: 2,
-        ease: 'power2.inOut',
-        onUpdate: function () {
-          const progress = this.progress();
-          const gradient = `linear-gradient(to right, #87CEEB ${progress * 100}%, #FF69B4 ${progress * 100}%)`;
-          rainbowLineRef.current.style.background = gradient;
-        },
-      });
-
-      // Heart shape forms in the center
-      rainbowTl.to(heartRef.current, {
+        ease: 'power2.inOut'
+      })
+      .to(heartRef.current, {
         opacity: 1,
         scale: 1,
         duration: 1,
-        ease: 'elastic.out(1, 0.5)',
-      });
-
-      // Heart transforms into logo
-      rainbowTl.to(heartRef.current, {
-        opacity: 0,
-        duration: 0.5,
-      }, '+=0.5');
-
-      rainbowTl.to(logoRef.current, {
+        ease: 'elastic.out(1, 0.5)'
+      }, '-=1')
+      .to(logoRef.current, {
         opacity: 1,
         scale: 1,
         duration: 1,
-        ease: 'power2.out',
-      }, '<');
-
-      // Rainbow line exits to the right
-      rainbowTl.to(rainbowLineRef.current, {
-        x: '150%',
-        duration: 2,
-        ease: 'power2.inOut',
-      }, '<');
-
-      // Logo shrinks and title appears
-      rainbowTl.to(logoRef.current, {
-        scale: 0.5,
-        duration: 1,
-        ease: 'power2.out',
-      }, '+=0.5');
-
-      rainbowTl.to(titleRef.current, {
+        ease: 'back.out(1.7)'
+      }, '-=0.5')
+      .to(nameRef.current, {
         opacity: 1,
         y: 0,
         duration: 1,
-        ease: 'power2.out',
-      }, '<');
-
-      // Description appears
-      rainbowTl.to(descriptionRef.current, {
-        opacity: 1,
-        y: 0,
-        duration: 1,
-        ease: 'power2.out',
-      }, '+=0.5');
-
-      // Features fade in sequentially
-      featuresRef.current.forEach((feature, index) => {
-        rainbowTl.to(feature, {
-          opacity: 1,
-          y: 0,
-          duration: 1,
-          ease: 'power2.out',
-        }, `+=${index * 0.3}`);
-      });
+        ease: 'power3.out'
+      }, '-=0.5');
     }, sectionRef);
 
-    return () => ctx.revert();
+    const handleMouseMove = (e) => {
+      if (glowRef.current) {
+        gsap.to(glowRef.current, {
+          x: e.clientX,
+          y: e.clientY,
+          duration: 1,
+          ease: 'power2.out'
+        });
+      }
+    };
+
+    window.addEventListener('mousemove', handleMouseMove);
+    return () => {
+      ctx.revert();
+      window.removeEventListener('mousemove', handleMouseMove);
+    };
   }, []);
 
   return (
-    <>
-      {/* SVG Clip Path for Heart Shape */}
-      <svg className="heart-clip">
-        <clipPath id="heart-clip">
-          <path d="M50 15c-10 0-15 10-15 20 0 10 5 15 15 25 10-10 15-15 15-25 0-10-5-20-15-20z" />
-        </clipPath>
-      </svg>
-      <section id="carecurve-intro" ref={sectionRef} className="carecurve-intro">
-        <div className="animation-container">
-          <div ref={rainbowLineRef} className="rainbow-line"></div>
-          <div ref={heartRef} className="heart-shape"></div>
-          <img ref={logoRef} src={careCurveLogo} alt="CareCurve Logo" className="carecurve-logo" />
+    <section ref={sectionRef} className="carecurve-intro">
+      <Particles />
+      <div className="glow-effect" ref={glowRef} />
+      
+      <div className="intro-content">
+        <div className="logo-container">
+          <svg className="ribbon-svg" viewBox="0 0 100 100" preserveAspectRatio="none">
+            <path
+              ref={ribbonRef}
+              className="ribbon-path"
+              d="M10,50 Q30,30 50,50 T90,50"
+            />
+          </svg>
+          
+          <motion.div
+            ref={heartRef}
+            className="heart-icon"
+            animate={{ scale: [1, 1.1, 1] }}
+            transition={{
+              duration: 2,
+              repeat: Infinity,
+              ease: "easeInOut"
+            }}
+          >
+            ❤️
+          </motion.div>
+          
+          <img
+            ref={logoRef}
+            src={careCurveLogo}
+            alt="CareCurve Logo"
+            className="logo-image"
+          />
         </div>
-        <div className="content-container">
-          <h2 ref={titleRef} className="carecurve-title">Introducing CareCurve</h2>
-          <p ref={descriptionRef} className="carecurve-description">
-            CareCurve is the ultimate digital solution for safeguarding your baby’s health information. Say goodbye to the worries of misplaced or damaged physical cards—our platform ensures all your data is secure, accessible, and up-to-date.
-          </p>
-          <div className="features-grid">
-            {features.map((feature, index) => (
-              <div
-                key={index}
-                ref={(el) => setFeatureRef(el, index)}
-                className="feature-card"
-              >
-                <h3 className="feature-title">{feature.title}</h3>
-                <p className="feature-description">{feature.description}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-    </>
+        
+        <motion.h1
+          ref={nameRef}
+          className="company-name"
+          animate={{ y: [0, -5, 0] }}
+          transition={{
+            duration: 4,
+            repeat: Infinity,
+            ease: "easeInOut"
+          }}
+        >
+          CareCurve
+        </motion.h1>
+      </div>
+    </section>
   );
 };
 

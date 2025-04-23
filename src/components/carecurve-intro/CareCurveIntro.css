@@ -1,98 +1,145 @@
 .carecurve-intro {
-    position: relative;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    background: linear-gradient(135deg, #f0f4f8 0%, #e6f0fa 100%); /* Pastel blue gradient background */
-    padding: 50px 20px;
-    overflow: hidden;
+  position: relative;
+  min-height: 100vh;
+  background: linear-gradient(to bottom, #000913, #001933);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.particles {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+.particle {
+  position: absolute;
+  background: radial-gradient(circle, rgba(255,255,255,0.8) 0%, rgba(255,255,255,0) 70%);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.glow-effect {
+  position: absolute;
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(circle, rgba(0,100,255,0.15) 0%, rgba(0,100,255,0) 70%);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 1;
+  filter: blur(20px);
+}
+
+.intro-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  max-width: 1200px;
+  padding: 2rem;
+}
+
+.logo-container {
+  position: relative;
+  margin-bottom: 2rem;
+}
+
+.ribbon-svg {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: -1;
+}
+
+.ribbon-path {
+  fill: none;
+  stroke: rgba(255, 255, 255, 0.1);
+  stroke-width: 2;
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 1000;
+}
+
+.logo-image {
+  width: 200px;
+  height: auto;
+  filter: drop-shadow(0 0 20px rgba(255,255,255,0.2));
+  transition: transform 0.3s ease;
+}
+
+.logo-image:hover {
+  transform: scale(1.05);
+}
+
+.heart-icon {
+  position: absolute;
+  top: -20px;
+  right: -20px;
+  font-size: 2rem;
+  filter: drop-shadow(0 0 10px rgba(255,0,0,0.3));
+}
+
+.company-name {
+  font-family: 'RethinkSans', sans-serif;
+  font-size: 3rem;
+  font-weight: bold;
+  background: linear-gradient(135deg, #ffffff 0%, #a5b4fc 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin: 0;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+}
+
+.feature-card {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 1rem;
+  padding: 2rem;
+  margin: 1rem;
+  transition: all 0.3s ease;
+}
+
+.feature-card:hover {
+  transform: translateY(-5px);
+  background: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .company-name {
+    font-size: 2rem;
   }
   
-  .animation-container {
-    position: relative;
-    width: 100%;
-    height: 200px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  .rainbow-line {
-    position: absolute;
-    width: 100%;
-    height: 5px;
-    background: linear-gradient(to right, #87CEEB 0%, #FF69B4 0%); /* Initial blue */
-  }
-  
-  .heart-shape {
-    position: absolute;
-    width: 100px;
-    height: 100px;
-    background: linear-gradient(to right, #87CEEB, #FF69B4); /* Gradient for heart */
-    clip-path: url(#heart-clip);
-  }
-  
-  .carecurve-logo {
-    position: absolute;
+  .logo-image {
     width: 150px;
-    height: auto;
   }
   
-  .content-container {
-    text-align: center;
-    max-width: 1200px;
-    margin: 0 auto;
-  }
-  
-  .carecurve-title {
-    font-size: 2.5rem;
-    color: #5a8cff; /* Light blue for the title */
-    margin-bottom: 20px;
-  }
-  
-  .carecurve-description {
-    font-size: 1.2rem;
-    color: #666;
-    margin-bottom: 40px;
-    line-height: 1.6;
-  }
-  
-  .features-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 20px;
-    padding: 0 20px;
+  .heart-icon {
+    font-size: 1.5rem;
   }
   
   .feature-card {
-    background: #fff5f5; /* Pastel pink background for feature cards */
-    border-radius: 10px;
-    padding: 20px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease;
+    padding: 1.5rem;
+    margin: 0.75rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .intro-content {
+    padding: 1rem;
   }
   
-  .feature-card:hover {
-    transform: translateY(-5px);
+  .company-name {
+    font-size: 1.75rem;
   }
   
-  .feature-title {
-    font-size: 1.5rem;
-    color: #ff99cc; /* Pastel pink for feature titles */
-    margin-bottom: 10px;
+  .logo-image {
+    width: 120px;
   }
-  
-  .feature-description {
-    font-size: 1rem;
-    color: #666;
-    line-height: 1.5;
-  }
-  
-  /* SVG clip path for heart shape */
-  svg.heart-clip {
-    position: absolute;
-    width: 0;
-    height: 0;
-  }
+}
