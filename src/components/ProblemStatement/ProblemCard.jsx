@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useInView } from 'react-intersection-observer';
 import useTypewriter from '../../hooks/useTypewriter'; // Import the hook
 import './ProblemStatement.css'; // We'll add card styles to this main CSS file
@@ -11,7 +11,7 @@ const PlaceholderIcon = () => (
 );
 
 
-const ProblemCard = ({ title, description, icon = 'placeholder', delay = 0 }) => {
+const ProblemCard = ({ title, description, delay = 0 }) => {
   const { ref, inView } = useInView({
     triggerOnce: true, // Only trigger once when it comes into view
     threshold: 0.3, // Trigger when 30% of the card is visible

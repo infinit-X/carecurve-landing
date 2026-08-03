@@ -1,7 +1,3 @@
-import { useCallback } from 'react';
-import { usePreloadImages } from './usePreloadImages';
-import { useIntersectionObserver } from './useIntersectionObserver';
-
 export const useAnimation = () => {
   // Shared animation variants
   const fadeInUp = {
@@ -125,12 +121,6 @@ export const useAnimation = () => {
     }
   };
 
-  // Scroll-triggered fade
-  const scrollFade = useCallback((threshold = 0.2) => {
-    const [ref, isVisible] = useIntersectionObserver({ threshold });
-    return { ref, isVisible };
-  }, []);
-
   return {
     fadeInUp,
     fadeInScale,
@@ -140,7 +130,6 @@ export const useAnimation = () => {
     cardHover,
     textReveal,
     listReveal,
-    float,
-    scrollFade
+    float
   };
 };

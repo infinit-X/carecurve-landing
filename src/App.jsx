@@ -11,7 +11,6 @@ import CookieConsent from './components/shared/CookieConsent/CookieConsent';
 import PageProgress from './components/shared/PageProgress/PageProgress';
 import BackgroundAnimation from './components/shared/BackgroundAnimation/BackgroundAnimation';
 import { usePreloadImages } from './hooks/usePreloadImages';
-import { useScrollProgress } from './hooks/useScrollProgress';
 import Analytics from './utils/analytics';
 import './App.css';
 

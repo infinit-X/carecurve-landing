@@ -4,6 +4,7 @@ import { useTheme } from '../../hooks/useTheme.ts';
 
 const ThemeContext = createContext(null);
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const useThemeContext = () => {
   const context = useContext(ThemeContext);
   if (!context) {
@@ -33,7 +34,7 @@ export const ThemeProvider = ({ children }) => {
 
     // Update body class for theme
     document.body.classList.toggle('dark', theme.isDark);
-  }, [themeState.theme]);
+  }, [themeState]);
 
   return (
     <ThemeContext.Provider value={themeState}>
