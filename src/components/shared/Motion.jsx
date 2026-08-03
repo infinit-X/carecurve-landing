@@ -69,21 +69,25 @@ Motion.Text = ({ children, delay, ...props }) => (
   </Motion>
 );
 
-Motion.List = ({ children, ...props }) => (
-  <motion.div
-    variants={useAnimation().staggerChildren}
-    initial="hidden"
-    whileInView="visible"
-    viewport={{ once: true }}
-    {...props}
-  >
-    {React.Children.map(children, (child, index) => (
-      <motion.div variants={useAnimation().listReveal} custom={index}>
-        {child}
-      </motion.div>
-    ))}
-  </motion.div>
-);
+const MotionList = ({ children, ...props }) => {
+  const animations = useAnimation();
+  return (
+    <motion.div
+      variants={animations.staggerChildren}
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true }}
+      {...props}
+    >
+      {React.Children.map(children, (child, index) => (
+        <motion.div variants={animations.listReveal} custom={index}>
+          {child}
+        </motion.div>
+      ))}
+    </motion.div>
+  );
+};
+Motion.List = MotionList;
 
 Motion.Float = ({ children, ...props }) => (
   <Motion animation="float" {...props}>

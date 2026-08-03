@@ -9,9 +9,6 @@ export const usePreloadImages = (imageUrls) => {
       return;
     }
 
-    let loadedCount = 0;
-    const totalImages = imageUrls.length;
-
     const preloadImage = (url) => {
       return new Promise((resolve, reject) => {
         const img = new Image();
