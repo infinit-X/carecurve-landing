@@ -1,5 +1,11 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
+import {
+  PersonIcon,
+  UploadIcon,
+  BarChartIcon,
+  LockClosedIcon
+} from '@radix-ui/react-icons';
 import { useParallax } from '../../hooks/useParallax';
 import ScrollReveal from '../shared/ScrollReveal';
 import Container from '../shared/Container';
@@ -10,25 +16,25 @@ const steps = [
     number: '01',
     title: 'Create Your Account',
     description: "Sign up in minutes with our simple registration process. Add your children's profiles and start your digital health journey.",
-    icon: '📝'
+    icon: <PersonIcon width="1.5em" height="1.5em" />
   },
   {
     number: '02',
     title: 'Upload Records',
     description: 'Easily upload existing health records through our secure platform. Support for documents, images, and direct healthcare provider integration.',
-    icon: '📤'
+    icon: <UploadIcon width="1.5em" height="1.5em" />
   },
   {
     number: '03',
     title: 'Track & Monitor',
     description: "Monitor your child's health metrics, set reminders for appointments and medications, and track developmental milestones.",
-    icon: '📊'
+    icon: <BarChartIcon width="1.5em" height="1.5em" />
   },
   {
     number: '04',
     title: 'Share Securely',
     description: 'Share records securely with healthcare providers. Grant and revoke access with complete control over your data.',
-    icon: '🔒'
+    icon: <LockClosedIcon width="1.5em" height="1.5em" />
   }
 ];
 
@@ -61,18 +67,39 @@ const StepCard = ({ number, title, description, icon, isActive, onClick }) => (
 
 const HowItWorks = () => {
   const [activeStep, setActiveStep] = useState(0);
+  const [isVisible, setIsVisible] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
+  const sectionRef = React.useRef(null);
   const parallaxRef = useParallax(0.2);
 
-  // Auto-advance steps
+  // Observe visibility in viewport
   React.useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsVisible(entry.isIntersecting);
+      },
+      { threshold: 0 }
+    );
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
+
+  // Auto-advance steps only when visible and not hovered
+  React.useEffect(() => {
+    if (!isVisible || isHovered) return;
+
     const timer = setInterval(() => {
       setActiveStep((prev) => (prev + 1) % steps.length);
     }, 5000);
     return () => clearInterval(timer);
-  }, []);
+  }, [isVisible, isHovered]);
 
   return (
-    <section className="how-it-works" id="how-it-works">
+    <section ref={sectionRef} className="how-it-works" id="how-it-works">
       <div className="how-it-works-background" ref={parallaxRef}>
         <div className="gradient-orb orb-1" />
         <div className="gradient-orb orb-2" />
@@ -87,7 +114,11 @@ const HowItWorks = () => {
           </p>
         </ScrollReveal>
 
-        <div className="steps-container">
+        <div
+          className="steps-container"
+          onMouseEnter={() => setIsHovered(true)}
+          onMouseLeave={() => setIsHovered(false)}
+        >
           {steps.map((step, index) => (
             <StepCard
               key={step.number}

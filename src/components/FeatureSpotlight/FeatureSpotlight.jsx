@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { ActivityLogIcon, LockClosedIcon, BellIcon } from '@radix-ui/react-icons';
 import { useParallax } from '../../hooks/useParallax';
 import ScrollReveal from '../shared/ScrollReveal';
 import Container from '../shared/Container';
@@ -10,21 +11,21 @@ const spotlightFeatures = [
     id: 1,
     title: "Real-time Health Tracking",
     description: "Monitor your child's health metrics in real-time. Get instant updates and notifications about important changes.",
-    icon: "📊",
+    icon: <ActivityLogIcon width="1em" height="1em" />,
     color: "#4f46e5"
   },
   {
     id: 2,
     title: "Secure Cloud Storage",
     description: "Your data is encrypted and securely stored in the cloud, accessible only to you and authorized healthcare providers.",
-    icon: "🔒",
+    icon: <LockClosedIcon width="1em" height="1em" />,
     color: "#059669"
   },
   {
     id: 3,
     title: "Smart Notifications",
     description: "Receive intelligent alerts for vaccinations, check-ups, and medication schedules. Never miss an important health event.",
-    icon: "🔔",
+    icon: <BellIcon width="1em" height="1em" />,
     color: "#dc2626"
   }
 ];

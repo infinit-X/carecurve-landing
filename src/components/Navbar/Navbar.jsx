@@ -11,13 +11,14 @@ const Navbar = ({ darkMode }) => {
   const [activeLink, setActiveLink] = useState('');
 
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
+    let ticking = false;
+
+    const updateScrollState = () => {
+      const scrollY = window.scrollY;
+      setIsScrolled(scrollY > 20);
 
       // Update active section based on scroll position
       const sections = document.querySelectorAll('section[id]');
-      const scrollY = window.scrollY;
-
       sections.forEach(section => {
         const sectionTop = section.offsetTop - 100;
         const sectionHeight = section.offsetHeight;
@@ -27,9 +28,18 @@ const Navbar = ({ darkMode }) => {
           setActiveLink(sectionId);
         }
       });
+
+      ticking = false;
     };
 
-    window.addEventListener('scroll', handleScroll);
+    const handleScroll = () => {
+      if (!ticking) {
+        requestAnimationFrame(updateScrollState);
+        ticking = true;
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 

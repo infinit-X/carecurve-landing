@@ -10,30 +10,10 @@ import videoRain from '../../assets/videos/rain-lightning.mp4';
 import videoAccess from '../../assets/videos/accessibility-bg.mp4';
 import videoIncomplete from '../../assets/videos/incomplete-bg.mp4';
 
+import ProblemCard from './ProblemCard';
+
 // Register GSAP Plugins
 gsap.registerPlugin(ScrollTrigger, TextPlugin);
-
-const ProblemCard = ({ title, description, video, index }) => {
-  return (
-    <motion.div 
-      className="problem-card"
-      initial={{ opacity: 0, y: 50 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.6, delay: index * 0.2 }}
-    >
-      <div className="card-video-container">
-        <video autoPlay loop muted playsInline>
-          <source src={video} type="video/mp4" />
-        </video>
-      </div>
-      <div className="glass-effect" />
-      <div className="card-content">
-        <h3 className="card-title">{title}</h3>
-        <p className="card-description">{description}</p>
-      </div>
-    </motion.div>
-  );
-};
 
 const ProblemStatement = () => {
   const sectionRef = useRef(null);

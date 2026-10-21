@@ -1,5 +1,13 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import {
+  FileTextIcon,
+  GlobeIcon,
+  BarChartIcon,
+  LockClosedIcon,
+  PersonIcon,
+  LightningBoltIcon
+} from '@radix-ui/react-icons';
 import { useParallax } from '../../hooks/useParallax';
 import ScrollReveal from '../shared/ScrollReveal';
 import Container from '../shared/Container';
@@ -9,32 +17,32 @@ const features = [
   {
     title: "Digital Record Keeping",
     description: "Store and access your child's health records securely in the cloud",
-    icon: "📱",
+    icon: <FileTextIcon width="1.5em" height="1.5em" />,
   },
   {
     title: "Easy Access",
     description: "Access records instantly from any device, anywhere, anytime",
-    icon: "🔐",
+    icon: <GlobeIcon width="1.5em" height="1.5em" />,
   },
   {
     title: "Smart Analytics",
     description: "Track growth patterns and health trends with intelligent insights",
-    icon: "📊",
+    icon: <BarChartIcon width="1.5em" height="1.5em" />,
   },
   {
     title: "Data Security",
     description: "Bank-level encryption keeping your child's health data safe",
-    icon: "🛡️",
+    icon: <LockClosedIcon width="1.5em" height="1.5em" />,
   },
   {
     title: "Doctor Integration",
     description: "Share records seamlessly with healthcare providers",
-    icon: "👨‍⚕️",
+    icon: <PersonIcon width="1.5em" height="1.5em" />,
   },
   {
     title: "Emergency Access",
     description: "Quick access to vital information during emergencies",
-    icon: "🚨",
+    icon: <LightningBoltIcon width="1.5em" height="1.5em" />,
   }
 ];
 

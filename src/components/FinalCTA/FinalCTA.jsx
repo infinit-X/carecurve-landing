@@ -20,6 +20,10 @@ const FinalCTA = () => {
             <motion.div
               key={i}
               className="floating-particle"
+              style={{
+                left: `${(i * 19 + 5) % 95}%`,
+                top: `${(i * 23 + 10) % 90}%`
+              }}
               animate={{
                 y: [0, -30, 0],
                 opacity: [0.5, 1, 0.5],

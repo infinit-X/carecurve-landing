@@ -7,41 +7,71 @@ import './CareCurveIntro.css';
 
 gsap.registerPlugin(ScrollTrigger);
 
-const Particles = () => {
+const Particles = ({ isVisible }) => {
   const particlesRef = useRef([]);
   const [particles, setParticles] = useState([]);
+  const boundsRef = useRef({
+    width: typeof window !== 'undefined' ? window.innerWidth : 1000,
+    height: typeof window !== 'undefined' ? window.innerHeight : 1000,
+  });
+
+  useEffect(() => {
+    const handleResize = () => {
+      boundsRef.current = {
+        width: window.innerWidth,
+        height: window.innerHeight,
+      };
+    };
+
+    window.addEventListener('resize', handleResize, { passive: true });
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   useEffect(() => {
     const newParticles = Array.from({ length: 50 }, (_, i) => ({
       id: i,
-      x: Math.random() * window.innerWidth,
-      y: Math.random() * window.innerHeight,
+      x: Math.random() * boundsRef.current.width,
+      y: Math.random() * boundsRef.current.height,
       size: Math.random() * 2 + 1,
       speedX: (Math.random() - 0.5) * 2,
       speedY: (Math.random() - 0.5) * 2,
     }));
     setParticles(newParticles);
+  }, []);
+
+  useEffect(() => {
+    if (!isVisible || particles.length === 0) return;
+
+    let animationFrameId;
 
     const animate = () => {
+      const { width, height } = boundsRef.current;
       particlesRef.current.forEach((particle, i) => {
         if (!particle) return;
-        
-        const particleData = newParticles[i];
+
+        const particleData = particles[i];
+        if (!particleData) return;
+
         particleData.x += particleData.speedX;
         particleData.y += particleData.speedY;
 
-        if (particleData.x < 0) particleData.x = window.innerWidth;
-        if (particleData.x > window.innerWidth) particleData.x = 0;
-        if (particleData.y < 0) particleData.y = window.innerHeight;
-        if (particleData.y > window.innerHeight) particleData.y = 0;
+        if (particleData.x < 0) particleData.x = width;
+        if (particleData.x > width) particleData.x = 0;
+        if (particleData.y < 0) particleData.y = height;
+        if (particleData.y > height) particleData.y = 0;
 
         particle.style.transform = `translate(${particleData.x}px, ${particleData.y}px)`;
       });
-      requestAnimationFrame(animate);
+      animationFrameId = requestAnimationFrame(animate);
     };
 
-    animate();
-  }, []);
+    animationFrameId = requestAnimationFrame(animate);
+    return () => {
+      if (animationFrameId) {
+        cancelAnimationFrame(animationFrameId);
+      }
+    };
+  }, [isVisible, particles]);
 
   return (
     <div className="particles">
@@ -70,6 +100,22 @@ const CareCurveIntro = () => {
   const logoRef = useRef(null);
   const nameRef = useRef(null);
   const glowRef = useRef(null);
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsVisible(entry.isIntersecting);
+      },
+      { threshold: 0 }
+    );
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
 
   useLayoutEffect(() => {
     let pathLength = 1000;
@@ -125,27 +171,36 @@ const CareCurveIntro = () => {
       }, '-=0.5');
     }, sectionRef);
 
+    const quickToX = glowRef.current
+      ? gsap.quickTo(glowRef.current, "x", { duration: 0.6, ease: "power2.out" })
+      : null;
+    const quickToY = glowRef.current
+      ? gsap.quickTo(glowRef.current, "y", { duration: 0.6, ease: "power2.out" })
+      : null;
+
     const handleMouseMove = (e) => {
-      if (glowRef.current) {
-        gsap.to(glowRef.current, {
-          x: e.clientX,
-          y: e.clientY,
-          duration: 1,
-          ease: 'power2.out'
-        });
+      if (quickToX && quickToY) {
+        quickToX(e.clientX);
+        quickToY(e.clientY);
       }
     };
 
-    window.addEventListener('mousemove', handleMouseMove);
+    const sectionEl = sectionRef.current;
+    if (sectionEl) {
+      sectionEl.addEventListener('mousemove', handleMouseMove);
+    }
+
     return () => {
       ctx.revert();
-      window.removeEventListener('mousemove', handleMouseMove);
+      if (sectionEl) {
+        sectionEl.removeEventListener('mousemove', handleMouseMove);
+      }
     };
   }, []);
 
   return (
     <section ref={sectionRef} className="carecurve-intro">
-      <Particles />
+      <Particles isVisible={isVisible} />
       <div className="glow-effect" ref={glowRef} />
       
       <div className="intro-content">
@@ -165,10 +220,20 @@ const CareCurveIntro = () => {
             transition={{
               duration: 2,
               repeat: Infinity,
-              ease: "easeInOut"
+              ease: 'easeInOut',
             }}
           >
-            ❤️
+            <svg
+              width="1em"
+              height="1em"
+              viewBox="0 0 24 24"
+              fill="#ef4444"
+              xmlns="http://www.w3.org/2000/svg"
+              style={{ display: 'inline-block', verticalAlign: 'middle' }}
+              aria-hidden="true"
+            >
+              <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+            </svg>
           </motion.div>
           
           <img

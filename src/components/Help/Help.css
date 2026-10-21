@@ -1,92 +1,231 @@
 .help-section {
-  padding: 80px 0;
-  background: #ffffff;
+  position: relative;
+  padding: 8rem 0;
+  background: linear-gradient(135deg, #16213e 0%, #0f172a 100%);
+  overflow: hidden;
+}
+
+.help-background-glow {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 50% 30%, rgba(99, 102, 241, 0.15) 0%, transparent 70%);
+  pointer-events: none;
 }
 
 .help-container {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0 20px;
+  padding: 0 24px;
+  position: relative;
+  z-index: 1;
 }
 
-.help-section h2 {
+.help-title {
+  font-family: 'RethinkSans', sans-serif;
+  font-size: clamp(2rem, 5vw, 3rem);
+  font-weight: bold;
   text-align: center;
-  font-size: 2.5rem;
-  margin-bottom: 50px;
-  color: #333;
+  margin-bottom: 0.75rem;
+  background: linear-gradient(135deg, #ffffff 0%, #a5b4fc 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.help-subtitle {
+  text-align: center;
+  color: #94a3b8;
+  font-size: 1.1rem;
+  max-width: 600px;
+  margin: 0 auto 4rem;
+  line-height: 1.6;
 }
 
 .help-content {
   display: flex;
-  gap: 40px;
-  flex-wrap: wrap;
+  gap: 32px;
+  flex-direction: column;
+}
+
+@media (min-width: 992px) {
+  .help-content {
+    flex-direction: row;
+    align-items: stretch;
+  }
 }
 
 .help-categories {
   flex: 2;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 30px;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 24px;
 }
 
 .help-category {
-  background: #f8f9fa;
-  padding: 30px;
-  border-radius: 10px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 1.5rem;
+  padding: 2rem;
+  transition: all 0.3s ease;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.help-category:hover {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(99, 102, 241, 0.3);
+  box-shadow: 0 10px 30px -10px rgba(99, 102, 241, 0.2);
+}
+
+.help-category-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 1.5rem;
+}
+
+.help-icon-wrapper {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: rgba(99, 102, 241, 0.15);
+  border: 1px solid rgba(99, 102, 241, 0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.help-icon {
+  width: 22px;
+  height: 22px;
+  color: #818cf8;
 }
 
 .help-category h3 {
-  color: #2c3e50;
-  margin-bottom: 20px;
-  font-size: 1.3rem;
+  color: #f1f5f9;
+  font-size: 1.35rem;
+  font-weight: 600;
+  margin: 0;
 }
 
 .help-category ul {
   list-style: none;
   padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
 }
 
-.help-category li {
-  margin: 12px 0;
-  color: #666;
+.help-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 14px;
+  border-radius: 10px;
+  color: #cbd5e1;
+  font-size: 0.95rem;
   cursor: pointer;
-  transition: color 0.3s ease;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid transparent;
+  transition: all 0.2s ease;
 }
 
-.help-category li:hover {
-  color: #007bff;
+.help-item:hover {
+  color: #ffffff;
+  background: rgba(99, 102, 241, 0.12);
+  border-color: rgba(99, 102, 241, 0.25);
+  transform: translateX(4px);
+}
+
+.help-item-chevron {
+  width: 16px;
+  height: 16px;
+  color: #64748b;
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.help-item:hover .help-item-chevron {
+  color: #a5b4fc;
+  transform: translateX(2px);
 }
 
 .help-contact-info {
   flex: 1;
-  background: #f8f9fa;
-  padding: 30px;
-  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 1.5rem;
+  padding: 2.5rem 2rem;
   text-align: center;
-  min-width: 300px;
+  min-width: 280px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.help-contact-info:hover {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(99, 102, 241, 0.3);
+  box-shadow: 0 10px 30px -10px rgba(99, 102, 241, 0.2);
+}
+
+.help-contact-icon-wrapper {
+  width: 56px;
+  height: 56px;
+  border-radius: 16px;
+  background: rgba(99, 102, 241, 0.15);
+  border: 1px solid rgba(99, 102, 241, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+}
+
+.help-contact-icon {
+  width: 28px;
+  height: 28px;
+  color: #818cf8;
 }
 
 .help-contact-info h3 {
-  color: #2c3e50;
-  margin-bottom: 15px;
+  color: #f1f5f9;
+  font-size: 1.35rem;
+  font-weight: 600;
+  margin-bottom: 0.75rem;
 }
 
 .help-contact-info p {
-  color: #666;
-  margin-bottom: 20px;
+  color: #94a3b8;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  margin-bottom: 1.75rem;
 }
 
 .help-contact-button {
-  background: #007bff;
+  background: linear-gradient(135deg, #4f46e5 0%, #6366f1 100%);
   color: white;
   border: none;
-  padding: 12px 24px;
-  border-radius: 5px;
+  padding: 14px 28px;
+  border-radius: 9999px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  letter-spacing: 0.01em;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  box-shadow: 0 4px 15px rgba(79, 70, 229, 0.35);
+  transition: all 0.3s ease;
+  width: 100%;
+  max-width: 240px;
 }
 
 .help-contact-button:hover {
-  background: #0056b3;
+  background: linear-gradient(135deg, #4338ca 0%, #4f46e5 100%);
+  box-shadow: 0 6px 20px rgba(79, 70, 229, 0.5);
 }
